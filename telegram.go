@@ -1,49 +1,18 @@
 package gtelegram
 
-import (
-	"fmt"
-	"net/http"
+type Telegram interface {
+	// TODO: SendMessagef (for conveniece?)
 
-	"github.com/thomasheller/ghttp"
-)
+	// TODO: ShowOrUpdateKeyboard
+	// TODO: ShowKeyboard
 
-type Telegram struct {
-	token string
-}
+	// TODO: "Say"Inline
 
-func NewTelegram(token string) *Telegram {
-	return &Telegram{token: token}
-}
+	SendMessage(chatID int, text string, disableNotification bool) (messageID int, err error)
 
-func (t *Telegram) SendMessage(chatID int, text string, disableNotification bool) (messageID int, err error) {
-	td := telegramSendMessageData{
-		Text:                text,
-		ChatID:              chatID,
-		DisableNotification: disableNotification,
-	}
+	DeleteMessage(chatID int, messageID int) (err error)
 
-	return t.send("sendMessage", td)
-}
+	ShowKeyboard(chatID int, text string, disableNotification bool, buttons []InlineKeyboardButton, layout KeyboardLayout) (messageID int, err error)
 
-func (t *Telegram) send(action string, data interface{}) (messageID int, err error) {
-	url := fmt.Sprintf("https://api.telegram.org/bot%s/%s", t.token, action)
-
-	var req *http.Request
-	req, err = ghttp.NewRequest(http.MethodPost, url)
-	if err != nil {
-		return
-	}
-
-	var result telegramResult
-	if err = ghttp.JSONJSON(req, data, &result); err != nil {
-		return
-	}
-
-	if !result.OK {
-		err = fmt.Errorf("%d %s", result.ErrorCode, result.Description)
-		return
-	}
-
-	messageID = result.Result.MessageID
-	return
+	Updates() <-chan Update
 }
