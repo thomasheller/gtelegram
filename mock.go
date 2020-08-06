@@ -2,8 +2,8 @@ package gtelegram
 
 import (
 	"fmt"
+	"log"
 	"strconv"
-"log"
 	"strings"
 	"sync"
 )
@@ -152,7 +152,7 @@ func (m *Mock) Play(dialog []Line) {
 	close(m.updates)
 }
 
-func (m*Mock) SendMessage(chatID int, text string, disableNotification bool) (messageID int, err error) {
+func (m *Mock) SendMessage(chatID int, text string, disableNotification bool) (messageID int, err error) {
 	h := HistLine{
 		ID: m.nextID(),
 		Line: Line{
@@ -182,22 +182,21 @@ func (m Mock) DeleteMessage(chatID int, messageID int) (err error) {
 	return nil
 }
 
-func (m*Mock) ShowKeyboard(chatID int, text string, disableNotification bool, buttons []InlineKeyboardButton, layout KeyboardLayout) (messageID int, err error) {
+func (m *Mock) ShowKeyboard(chatID int, text string, disableNotification bool, buttons []InlineKeyboardButton, layout KeyboardLayout) (messageID int, err error) {
 	log.Printf("ShowKeyboard")
 
 	var keyboard strings.Builder
 
-	for i,button:=range buttons {
+	for i, button := range buttons {
 		if i > 0 {
 
 			keyboard.WriteString(",")
 		}
 		keyboard.WriteString("!")
-			keyboard.WriteString(button.CallbackData)
-			keyboard.WriteString(":")
-			keyboard.WriteString(button.Text)
+		keyboard.WriteString(button.CallbackData)
+		keyboard.WriteString(":")
+		keyboard.WriteString(button.Text)
 	}
-
 
 	// TODO
 

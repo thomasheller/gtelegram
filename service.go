@@ -33,7 +33,7 @@ func (s *Service) SendMessage(chatID int, text string, disableNotification bool)
 		Text:                text,
 		ChatID:              chatID,
 		DisableNotification: disableNotification,
-		ReplyMarkup:		telegramReplyMarkup{
+		ReplyMarkup: telegramReplyMarkup{
 			InlineKeyboard: []InlineKeyboardRow{},
 		},
 	}
@@ -55,7 +55,7 @@ func (s *Service) ShowKeyboard(chatID int, text string, disableNotification bool
 		Text:                text,
 		ChatID:              chatID,
 		DisableNotification: disableNotification,
-		ReplyMarkup:	     keyboardMarkup,
+		ReplyMarkup:         keyboardMarkup,
 	}
 
 	return s.send("sendMessage", td)
@@ -143,6 +143,7 @@ func (s *Service) poll() {
 
 	for _, update := range updates.Result {
 		// TODO: debug logging?
+		log.Printf("%+v", update)
 
 		if update.UpdateID > s.lastUpdate {
 			s.lastUpdate = update.UpdateID

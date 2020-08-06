@@ -28,10 +28,10 @@ type telegramChat struct {
 // Send types
 
 type telegramSendMessageData struct {
-	Text                string `json:"text"`
-	ChatID              int    `json:"chat_id"`
-	DisableNotification bool   `json:"disable_notification"`
-	ReplyMarkup telegramReplyMarkup `json:"reply_markup"`
+	Text                string              `json:"text"`
+	ChatID              int                 `json:"chat_id"`
+	DisableNotification bool                `json:"disable_notification"`
+	ReplyMarkup         telegramReplyMarkup `json:"reply_markup"`
 }
 
 type telegramReplyMarkup struct {
