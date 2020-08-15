@@ -14,30 +14,30 @@ func NewFilter(allowedChatIDs []int) *Filter {
 	return &Filter{allowedChatIDs: allowedChatIDs}
 }
 
-func (f Filter) Handle(u Update, handleFunc func(int, Update)) {
-	var fromID int
+func (f Filter) Handle(u Update, handleFunc func(From, Update)) {
+	var from From
 
 	switch v := u.(type) {
 	case Message:
 		// TODO: disallow groups...? if v.Chat.Type != "private" (for all update types?)
-		fromID = v.From.ID
+		from = v.From
 	case CallbackQuery:
-		fromID = v.From.ID
+		from = v.From
 	case InlineQuery:
-		fromID = v.From.ID
+		from = v.From
 	case ChosenInlineResult:
-		fromID = v.From.ID
+		from = v.From
 	}
 
-	if fromID == 0 {
+	if from.ID == 0 {
 		// TODO: error handling
-		log.Printf("Couldn't parse fromID from Telegram update: %+v", u)
+		log.Printf("Couldn't parse from.ID from Telegram update: %+v", u)
 		return
 	}
 
-	if len(f.allowedChatIDs) > 0 && !gslice.ContainsInt(f.allowedChatIDs, fromID) {
+	if len(f.allowedChatIDs) > 0 && !gslice.ContainsInt(f.allowedChatIDs, from.ID) {
 		return // filtered
 	}
 
-	handleFunc(fromID, u)
+	handleFunc(from, u)
 }
