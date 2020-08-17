@@ -1,2 +1,3 @@
-github.com/thomasheller/ghttp v0.0.0-20200725091445-f80a09887fac h1:ksXw6US4KDmRp7bglRjtgnZ2XLmdyVIQQ062itpiW54=
-github.com/thomasheller/ghttp v0.0.0-20200725091445-f80a09887fac/go.mod h1:OWfaVYUVlLaRptWG00khCHYtZtKVDEBbQLtgwxB+Ygk=
+github.com/thomasheller/ghttp v0.0.0-20200812144758-92b63b36436e/go.mod h1:OWfaVYUVlLaRptWG00khCHYtZtKVDEBbQLtgwxB+Ygk=
+github.com/thomasheller/gslice v0.0.0-20200807130644-f03dcd17b8c0 h1:MOaUsJfxDMevb2HLwf5s/caGprtMkelhR0xNimlpgwM=
+github.com/thomasheller/gslice v0.0.0-20200807130644-f03dcd17b8c0/go.mod h1:9AYhB/D9c+naQv7SlD+XQwrz69eN8PfY0LvbMudDAms=
